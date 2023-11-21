@@ -14,3 +14,18 @@ class Expert(models.Model):
     years_of_experience = models.PositiveSmallIntegerField()
     expertise = models.ForeignKey(Expertise, related_name="experts", on_delete=models.CASCADE)
     languages = models.CharField(max_length=255)
+
+class Query(models.Model):
+    user = models.ForeignKey(get_user_model(), related_name="queries", on_delete=models.CASCADE)
+    description = models.TextField()
+    catagory = models.ForeignKey(Expertise, related_name="queries", on_delete=models.CASCADE)
+    contacted_before = models.CharField(max_length=5, default="No")
+    is_resolved = models.BooleanField(default=False)
+
+    @property
+    def status(self):
+        return "Active"
+
+class QueryFile(models.Model):
+    query = models.ForeignKey(Query, related_name="files", on_delete=models.CASCADE)
+    file = models.FileField(upload_to=create_path_image, null=True)
