@@ -75,5 +75,4 @@ class ChatPDFConsumer(AsyncWebsocketConsumer):
         reply = chatpdf(self.scope["source_id"],text_data)
         await self.send(text_data=reply)
 
-    async def disconnect(self, code):
-        await self.close()
+    
