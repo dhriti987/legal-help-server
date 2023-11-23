@@ -15,6 +15,7 @@ class UserManager(BaseUserManager):
             raise ValueError("User Must Have Email")
         
         user = self.model(email = self.normalize_email(email), name=name, **kwargs)
+        user.is_active=True
         user.set_password(password)
         user.save()
         return user
