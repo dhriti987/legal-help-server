@@ -4,6 +4,7 @@ from .serializers import UserSerializer
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
+from django.contrib.auth import get_user_model
 
 
 class CustomObtainAuthToken(ObtainAuthToken):
@@ -36,3 +37,9 @@ class RegisterView(generics.GenericAPIView):
             },
             status=status.HTTP_201_CREATED
         )
+    
+class GetUserDetailView(generics.RetrieveAPIView):
+    authentication_classes = []
+    permission_classes = []
+    serializer_class = UserSerializer
+    queryset = get_user_model().objects.all()
