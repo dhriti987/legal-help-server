@@ -28,7 +28,12 @@ class TokenAuthMiddleware(BaseMiddleware):
             source_id  = (dict((x.split('=') for x in scope['query_string'].decode().split("&")))).get('sourceId', None)
         except:
             source_id = None
+        try: 
+            pdf_id  = (dict((x.split('=') for x in scope['query_string'].decode().split("&")))).get('pdfId', None)
+        except:
+            pdf_id = None
         scope['source_id'] = source_id
+        scope['pdf_id'] = pdf_id
         scope['user'] = AnonymousUser() if token_key is None else await get_user(token_key)
         return await super().__call__(scope, receive, send)
     

@@ -15,7 +15,7 @@ from django.core.asgi import get_asgi_application
 from channels.routing import ProtocolTypeRouter,URLRouter
 from .auth_middleware import TokenAuthMiddlewareStack
 from django.urls import path
-from chatbot.views import ChatPDFConsumer
+from chatbot.views import ChatPDFConsumer, ChatPDFConsumerV2
 from chat.consumers import ChatConsumer
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'server2.settings')
@@ -25,6 +25,7 @@ application = ProtocolTypeRouter({
     "websocket": TokenAuthMiddlewareStack(
         URLRouter([
             path("ws/chatpdf/", ChatPDFConsumer.as_asgi()),
+            path("ws/chatpdf-v2/", ChatPDFConsumerV2.as_asgi()),
             path("ws/chat/", ChatConsumer.as_asgi())
         ])
     )

@@ -4,6 +4,7 @@ from django.contrib.auth.models import (
     BaseUserManager,
     PermissionsMixin
 )
+from django.dispatch import receiver
 
 def create_path_image(self,filename):
     id = str(self.id)
@@ -75,3 +76,10 @@ class User(AbstractBaseUser,PermissionsMixin):
 # Employment details
 # District
 # Taluka
+
+@receiver(models.signals.post_delete, sender = User)
+def auto_delete_image_on_delete(sender,instance,*args,**kwargs):
+    try:
+        instance.photo.delete(save=False)
+    except:
+        return
