@@ -21,6 +21,7 @@ class QueryFileSerializer(serializers.ModelSerializer):
 class QuerySerializer(serializers.ModelSerializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
     catagory_name = serializers.ReadOnlyField(source="catagory.name")
+    user_id = serializers.ReadOnlyField(source="user.id")
     class Meta:
         model = Query
         fields = "__all__"
