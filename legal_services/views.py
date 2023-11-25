@@ -31,6 +31,10 @@ class QueryListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = QuerySerializer
     queryset = Query.objects.all()
 
+    def post(self, request, *args, **kwargs):
+        print(request.data)
+        return super().post(request, *args, **kwargs)
+
     def get_queryset(self):
         if self.request.user.user_type == "COMMON":
             return self.queryset.filter(user = self.request.user)

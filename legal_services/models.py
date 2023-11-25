@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.dispatch import receiver
 
 def create_path_image(self,filename):
-    query_id = str(self.query.id)
+    query_id = str(self.id)
     return f'query/{query_id}/{filename}'
 
 # Create your models here.
@@ -28,6 +28,7 @@ class Query(models.Model):
     catagory = models.ForeignKey(Expertise, related_name="queries", on_delete=models.CASCADE)
     contacted_before = models.CharField(max_length=5, default="No")
     is_resolved = models.BooleanField(default=False)
+    file = models.FileField(upload_to=create_path_image, null=True, blank=True)
 
     def __str__(self) -> str:
         return self.description
