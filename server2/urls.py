@@ -24,3 +24,5 @@ urlpatterns = [
     path("chatbot/", include("chatbot.urls")),
     path("chat/", include("chat.urls"))
 ]
+
+admin.site.site_header = "Justice Administrator"
