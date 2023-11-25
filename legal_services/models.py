@@ -30,7 +30,7 @@ class Query(models.Model):
     is_resolved = models.BooleanField(default=False)
 
     def __str__(self) -> str:
-        return self.description[30]
+        return self.description
 
     @property
     def status(self):
